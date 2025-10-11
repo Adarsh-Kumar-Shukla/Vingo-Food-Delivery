@@ -12,7 +12,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
 
-const SignUp = () => {
+const SignIn = () => {
   const primaryColor = "#ff4d2d";
   const hoverColor = "#e64323";
   const bgcolor = "#fff9f6";
@@ -100,7 +100,7 @@ const SignUp = () => {
         </div>
 
         <button className={`w-full font-semibold py-2 rounded-lg transition duration-200 bg-[#ff4d2d] text-white hover:bg-[#e64323] cursor-pointer `} onClick={handleSignIn} disabled={loading} >
-          {loading?<ClipLoader size={20} color="white" />:"Sign Up"}
+          {loading?<ClipLoader size={20} color="white" />:"Sign In"}
         </button>    
 
         {err && <p className="text-red-500 text-center py-[10px]" >*{err}</p>}
@@ -115,4 +115,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
