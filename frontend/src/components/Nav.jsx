@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { serverUrl } from "../App";
 import { setUserData } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const { userData , currentCity } = useSelector(state => state.user);
   const {myShopData} = useSelector(state => state.owner)
   const [showInfo, setShowInfo] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const navigate=useNavigate()
   const dispatch=useDispatch()
   const handleLogOut=async () => {
     try {
@@ -69,15 +71,15 @@ const Nav = () => {
           <>
             {myShopData && 
             <> 
-              <button className="hidden md:flex items-center gap-1 p-2 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d]" >
+              <button className="hidden md:flex items-center gap-1 p-2 cursor-pointer rounded-full bg-[#ff4d2d]/10 hover:bg-[#ff4d2d]/20 text-[#ff4d2d]" onClick={()=>navigate("/add-item")} >
                 <FaPlus />
                 <span>Add Food Items</span>
               </button>
-              <button className="md:hidden flex items-center gap-1 p-2 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d]" >
+              <button className="md:hidden flex items-center gap-1 p-2 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d]" onClick={()=>navigate("/add-item")} >
                 <FaPlus />
               </button>
             </>}
-            <div className="hidden md:flex itmes-center gap-2 cursor-pointer relative px-3 py-1 rounded-lg bg-[#ff4d2d]/10 text-[#ff4d2d] font-medium" >
+            <div className="hidden md:flex itmes-center gap-2 cursor-pointer relative px-3 py-1 rounded-lg bg-[#ff4d2d]/10 hover:bg-[#ff4d2d]/20 text-[#ff4d2d] font-medium" >
               <LuReceipt size={20}  />
               <span>My Orders</span>
               <span className="absolute -right-2 -top-2 text-xs font-bold text-white bg-[#ff4d2d] rounded-full px-[6px] py-[1px]" >0</span>
@@ -94,7 +96,7 @@ const Nav = () => {
                 0
               </span>
             </div>
-            <button className="hidden md:block px-3 py-1 rounded-lg bg-[#ff4d2d]/10 text-[#ff4d2d]">
+            <button className="hidden md:block px-3 py-1 rounded-lg bg-[#ff4d2d]/10  text-[#ff4d2d]">
               My Orders
             </button>
           </>
@@ -108,17 +110,19 @@ const Nav = () => {
         >
           {userData?.fullName.slice(0, 1)}
         </div>
-        {showInfo && (
+        {showInfo && 
           <div className="fixed top-[80px] right-[10px] md:right-[10%] lg:right-[25%] w-[180px] bg-white shadow-2xl rounded-xl p-[20px] flex flex-col gap-[10px] z-[9999]">
             <div className="text-[17px] font-semibold">{userData.fullName}</div>
-            <div className="md:hidden text-[#ff4d2d] font-semibold cursor-pointer">
-              My Orders
-            </div>
+            {userData.role=="user" && 
+              <div className="md:hidden text-[#ff4d2d] font-semibold cursor-pointer">
+                My Orders
+              </div>
+            }
             <div className="text-[#ff4d2d] font-semibold cursor-pointer " onClick={handleLogOut}>
               Log Out
             </div>
           </div>
-        )}
+        }
       </div>
     </div>
   );
